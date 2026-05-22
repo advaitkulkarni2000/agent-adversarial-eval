@@ -34,11 +34,11 @@ made it the most interesting assignment to work on.
 | `memory_store` / `memory_retrieve` | **Stateful** | SQLite (`agent_memory.db`) | Persistent facts across conversation turns |
 | `calculator` | Deterministic | sympy (symbolic eval) | Arithmetic, percentages, algebra |
 
-Tools are genuinely different capability classes — not three variants of
+Tools are genuinely different capability classes. Not three variants of
 search. A question like "What is 20% off my budget?" requires memory retrieval
 *and* calculation in sequence, which tests multi-tool reasoning.
 
-The calculator uses `sympy.sympify()` — never Python's `eval()` — for safe
+The calculator uses `sympy.sympify()` and never Python's `eval()` for safe
 symbolic evaluation. The memory store uses SQLite for true persistence across
 agent turns.
 
@@ -52,7 +52,7 @@ and selects tools based on its own reasoning.
 
 Every tool execution is wrapped in try/except. If a tool raises, the agent
 receives a structured error response (`{"status": "tool_error", "content": ...}`)
-and continues — it does not crash. Deliberate failures are injected in 2 of
+and continues, it does not crash. Deliberate failures are injected in 2 of
 the 20 eval prompts to verify this behaviour.
 
 ---
@@ -68,16 +68,19 @@ the 20 eval prompts to verify this behaviour.
 | Out-of-scope | 5 | Abstention vs hallucination |
 | Deliberate failure | 2 (embedded in happy path) | Graceful degradation and recovery |
 
-**Ambiguous prompts are the most interesting.** There is no single correct
+**Ambiguous prompts are the most interesting:** There is no single correct
 answer — "What is the GDP of France?" could use `web_search` (lookup) or
 `calculator` (if the value was already in memory). The evaluation labels
 a preferred tool and explains the reasoning. Consistency across runs matters
 more than any single choice.
 
-**Out-of-scope prompts test abstention.** The correct behaviour for "Write me
-a poem about the ocean" is to answer from general capability — no tool should
-fire. The correct behaviour for "Can you book a restaurant?" is to refuse
-clearly. Both test whether the agent knows the limits of its tools.
+**Out-of-scope prompts test tool abstention:** Whether the agent correctly
+identifies that none of its three tools (search, memory, calculator) are
+appropriate. The correct behaviour is no tool fires. What happens after
+varies: for creative tasks like writing a poem, Claude answers from general
+capability; for action requests like booking a restaurant or sending an email,
+Claude declines clearly. Both are correct. The evaluation metric is whether
+tools were unnecessarily invoked, not whether Claude responded at all.
 
 ### Two System Prompts
 
@@ -104,25 +107,25 @@ can and cannot help."*
 | Max-turns failures | **0** | **2/20** |
 
 Both prompts achieved 20/20 accuracy. The difference emerged in failure
-handling under repeated search failures — see Failure Mode 2 below.
+handling under repeated search failures (see Failure Mode 2 below).
 
 ### Recommended Prompt: **Prompt A**
 
-Prompt B hit `max_turns` on 2 prompts (H08 and A04) — it called web_search
+Prompt B hit `max_turns` on 2 prompts (H08 and A04), it called web_search
 5 times consecutively on rate-limited queries and returned
 `[Agent reached max turns without completing]`. Prompt A retried 3 times
 on the same prompts, then fell back to training knowledge gracefully.
 
 In production, an agent that silently hits max_turns is worse than one that
 acknowledges a search limitation and still provides a useful answer.
-Prompt A's explicit guidance — *"If a tool returns no result, say so"* — is
+Prompt A's explicit guidance: *"If a tool returns no result, say so"*; is
 worth the additional 200 characters of system prompt.
 
 ---
 
 ## Failure Modes
 
-### Failure Mode 1 — Key Mismatch in Stateful Memory
+### Failure Mode 1: Key Mismatch in Stateful Memory
 
 **Prompt H02** stored the monthly budget (£1,200) successfully.
 **Prompt H03** then called `memory_retrieve` and reported no record found —
@@ -142,11 +145,11 @@ replace exact-match retrieval with semantic similarity (embed keys, retrieve
 by cosine similarity). This is the approach used by production memory systems
 such as MemGPT.
 
-### Failure Mode 2 — DuckDuckGo Rate Limiting
+### Failure Mode 2: DuckDuckGo Rate Limiting
 
 5 of 8 web search prompts returned empty results from DuckDuckGo's free API.
-The agent handled each gracefully — acknowledged the search failure and
-answered from training knowledge — but this behaviour is worth documenting
+The agent handled each gracefully, acknowledged the search failure and
+answered from training knowledge. But this behaviour is worth documenting
 separately from the deliberate exception-based failures in H09 and H10.
 
 **The three failure types are architecturally distinct:**
