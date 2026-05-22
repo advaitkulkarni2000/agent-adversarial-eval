@@ -55,6 +55,27 @@ receives a structured error response (`{"status": "tool_error", "content": ...}`
 and continues, it does not crash. Deliberate failures are injected in 2 of
 the 20 eval prompts to verify this behaviour.
 
+### Decisions & Alternatives Ruled Out
+
+**SQLite over JSON for memory:** JSON file storage would work but SQLite
+gives atomic writes, concurrent-safe reads, and a queryable schema.
+Its important if the memory store grows. JSON risks corruption on interrupted
+writes.
+
+**sympy over eval() for calculator:** Python's eval() is a security
+vulnerability. sympy parses symbolically first, making it safe for
+arbitrary user input.
+
+**DuckDuckGo over paid search API:** Free tier for a demo project.
+The rate-limiting failure this caused is documented as Failure Mode 2
+and is the honest tradeoff of using a free API.
+
+**Three distinct tool types over three search variants:** The assignment
+explicitly required meaningfully different tools; web_search, memory,
+and calculator test orthogonal reasoning patterns, that is, external knowledge,
+personal context, and pure computation; making ambiguous prompts
+genuinely informative.
+
 ---
 
 ## Evaluation Design
@@ -181,14 +202,17 @@ provides documented rate limits and structured JSON responses.
 ```
 agent-adversarial-eval/
 ├── agent_eval.ipynb          ← Full notebook (13 cells, end-to-end)
+├── run_eval.py               ← Standalone script (called by make run / run.bat)
+├── Makefile                  ← make run / make install / make eval / make clean
+├── run.bat                   ← Windows equivalent of make run
 ├── requirements.txt
 ├── README.md
 ├── .gitignore
 ├── agent_memory.db           ← SQLite memory store (generated on run)
 └── results/
-    ├── eval_results.png      ← 4-panel visualisation
-    ├── raw_eval_results.csv  ← Every prompt × system prompt result
-    └── metrics_summary.csv   ← Aggregated metrics table
+    ├── eval_results.png
+    ├── raw_eval_results.csv
+    └── metrics_summary.csv
 ```
 
 ---
