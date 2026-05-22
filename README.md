@@ -12,14 +12,14 @@
 ## Why I Picked Assignment 2
 
 My existing work includes an LLM evaluation harness that benchmarks open-source
-models across 60 questions with programmatic failure taxonomy — classifying
+models across 60 questions with programmatic failure taxonomy, classifying
 *why* models fail, not just that they do. Assignment 2 extends that thinking
 into the agentic setting: the interesting question is not whether tools work
 in isolation, but how the agent reasons about *which* tool to use, *when* to
 stop trying, and *how* to fail gracefully.
 
-The adversarial framing — deliberate failures, ambiguous prompts, out-of-scope
-abstention — is closer to production reality than happy-path benchmarks. That
+The adversarial framing: deliberate failures, ambiguous prompts, out-of-scope
+abstention, is closer to production reality than happy-path benchmarks. That
 made it the most interesting assignment to work on.
 
 ---
@@ -202,8 +202,11 @@ export ANTHROPIC_API_KEY="sk-ant-..."   # Mac/Linux
 # set ANTHROPIC_API_KEY=sk-ant-...      # Windows CMD
 # $env:ANTHROPIC_API_KEY="sk-ant-..."  # Windows PowerShell
 
-# Run everything
+# Mac/Linux
 make run
+
+# Windows (CMD or PowerShell)
+run.bat
 ```
 
 That's it. `make run` installs dependencies, runs all 20 eval prompts
