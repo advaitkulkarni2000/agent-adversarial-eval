@@ -1,0 +1,3 @@
+System Prompt,Happy Path Accuracy (%),Ambiguous Accuracy (%),OOS Abstention Rate (%),Tool Fail Recovery (%),Mean Latency (ms),P95 Latency (ms),Total Correct
+Prompt A (Explicit),100.0,100.0,100.0,100.0,7563.0,21211.0,20/20
+Prompt B (Minimal),100.0,100.0,100.0,100.0,7669.0,17360.0,20/20

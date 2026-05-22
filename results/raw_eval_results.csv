@@ -1,0 +1,77 @@
+prompt_id,category,prompt,correct_tool,force_fail,system_prompt,tools_called,first_tool,tool_failed,recovered,latency_ms,response_snippet,correct,abstained
+H01,happy_path,What is 347 multiplied by 89?,calculator,False,Prompt A (Explicit),['calculator'],calculator,False,False,3810.4,"The result of **347 multiplied by 89** is **30,883**.",True,False
+H02,happy_path,"Please remember that my monthly budget is £1,200.",memory_store,False,Prompt A (Explicit),['memory_store'],memory_store,False,False,4752.4,"Got it! I've saved your monthly budget of **£1,200**. I'll keep that in mind throughout our conversation. Feel free to ask if you'd like help planning",True,False
+H03,happy_path,What was the monthly budget I told you?,memory_retrieve,False,Prompt A (Explicit),['memory_retrieve'],memory_retrieve,False,False,3523.7,"I don't have any record of a monthly budget you've shared with me. It's possible you haven't mentioned it yet in our conversation, or it may not have ",True,False
+H04,happy_path,Search for the latest news about Anthropic AI.,web_search,False,Prompt A (Explicit),['web_search'],web_search,False,False,8799.1,"Unfortunately, the web search didn't return any results at this moment. This could be a temporary issue. Here are a few suggestions to stay up to date",True,False
+H05,happy_path,What is the square root of 1764?,calculator,False,Prompt A (Explicit),['calculator'],calculator,False,False,3894.0,The square root of 1764 is **42**. 🎉,True,False
+H06,happy_path,Store the fact that my project deadline is 31st May 2026.,memory_store,False,Prompt A (Explicit),['memory_store'],memory_store,False,False,5005.0,"Done! I've stored the fact that your **project deadline is 31st May 2026**. You can ask me to recall it anytime during our conversation, and I'll have",True,False
+H07,happy_path,"What is 18% of £4,250?",calculator,False,Prompt A (Explicit),['calculator'],calculator,False,False,4253.9,"18% of £4,250 is **£765**.",True,False
+H08,happy_path,Search for the definition of Information Coefficient in quantitative finance.,web_search,False,Prompt A (Explicit),"['web_search', 'web_search', 'web_search']",web_search,False,False,21144.0,"I attempted multiple searches but unfortunately received no results at this time. However, I can provide you with a well-established definition of the",True,False
+H09,happy_path,Calculate 2 to the power of 32.,calculator,True,Prompt A (Explicit),['calculator'],calculator,True,True,4744.7,"It seems the calculator encountered an overflow error while trying to compute this. However, I can tell you the answer from well-known mathematical kn",True,False
+H10,happy_path,Search for the current price of Bitcoin in USD.,web_search,True,Prompt A (Explicit),['web_search'],web_search,True,True,5876.2,"Unfortunately, the web search service is currently unavailable, so I'm unable to retrieve the live price of Bitcoin at this moment.
+
+Here are a few wa",True,False
+A01,ambiguous,What is the GDP of France?,web_search,False,Prompt A (Explicit),"['web_search', 'web_search']",web_search,False,False,10961.2,"I attempted to search for the most current data on France's GDP, but unfortunately the search returned no results. However, based on my training knowl",True,False
+A02,ambiguous,How much is 20% off my budget?,memory_retrieve,False,Prompt A (Explicit),['memory_retrieve'],memory_retrieve,False,False,5003.6,"It seems I don't have your budget stored yet. Could you please tell me what your budget is? Once you provide it, I'll calculate 20% off for you! 😊",True,False
+A03,ambiguous,What is my project deadline?,memory_retrieve,False,Prompt A (Explicit),['memory_retrieve'],memory_retrieve,False,False,4084.9,"Your project deadline is **May 31st, 2026**. Make sure to plan ahead! 📅 Let me know if there's anything else I can help you with.",True,False
+A04,ambiguous,"What is the current USD to GBP exchange rate, and how much is £500 in dollars?",web_search,False,Prompt A (Explicit),"['web_search', 'web_search', 'calculator']",web_search,False,False,16851.7,"Here's a summary:
+
+- 💱 **Exchange Rate (approximate):** £1 GBP ≈ $1.27 USD
+- 💵 **£500 GBP ≈ $635.00 USD**
+
+> ⚠️ **Please note:** This is based on an a",True,False
+A05,ambiguous,Tell me about the SAM optimiser.,web_search,False,Prompt A (Explicit),"['web_search', 'web_search', 'web_search']",web_search,False,False,22475.7,"My web search isn't returning results right now, but I can still give you a solid overview of the **SAM (Sharpness-Aware Minimization)** optimizer fro",True,False
+O01,out_of_scope,Write me a poem about the ocean.,,False,Prompt A (Explicit),[],,False,False,7146.7,"Here's a poem about the ocean for you:
+
+---
+
+**The Ocean's Call**
+
+Beneath the vast and endless sky,
+The ocean breathes a deep, slow sigh,
+Its waves r",True,True
+O02,out_of_scope,Can you book a restaurant for me in Knightsbridge for tonight?,,False,Prompt A (Explicit),[],,False,False,8031.8,"I'm sorry, but I'm unable to book a restaurant for you. I don't have the ability to make reservations or interact with external booking systems or ser",True,True
+O03,out_of_scope,What will the FTSE 100 close at tomorrow?,,False,Prompt A (Explicit),[],,False,False,2813.0,"I'm unable to predict what the FTSE 100 will close at tomorrow. No tool or technology can reliably forecast future stock market prices, as markets are",True,True
+O04,out_of_scope,Translate this into Mandarin: the quick brown fox.,,False,Prompt A (Explicit),[],,False,False,3777.9,"This request doesn't require any of my tools, as it's a straightforward translation task.
+
+""The quick brown fox"" in Mandarin Chinese is:
+
+**快速的棕色狐狸** ",True,True
+O05,out_of_scope,Can you send an email to my manager saying I will be late?,,False,Prompt A (Explicit),[],,False,False,4307.2,"I'm sorry, but I'm unable to send emails. I don't have access to any email tools or services in my current setup. My available tools are limited to:
+
+",True,True
+H01,happy_path,What is 347 multiplied by 89?,calculator,False,Prompt B (Minimal),['calculator'],calculator,False,False,2946.2,"347 multiplied by 89 equals **30,883**.",True,False
+H02,happy_path,"Please remember that my monthly budget is £1,200.",memory_store,False,Prompt B (Minimal),['memory_store'],memory_store,False,False,7027.2,"Got it! I've saved your monthly budget of **£1,200**. I'll keep that in mind for any future budgeting questions or calculations you might have. 😊",True,False
+H03,happy_path,What was the monthly budget I told you?,memory_retrieve,False,Prompt B (Minimal),['memory_retrieve'],memory_retrieve,False,False,5006.6,"I don't have any record of a monthly budget you've shared with me. It's possible you haven't mentioned it yet in our conversation, or it may have been",True,False
+H04,happy_path,Search for the latest news about Anthropic AI.,web_search,False,Prompt B (Minimal),"['web_search', 'web_search']",web_search,False,False,10260.4,"I attempted to search for the latest news about **Anthropic AI**, but unfortunately the search returned no results at this time. This could be a tempo",True,False
+H05,happy_path,What is the square root of 1764?,calculator,False,Prompt B (Minimal),['calculator'],calculator,False,False,3276.0,The square root of **1764** is **42**. 🎉,True,False
+H06,happy_path,Store the fact that my project deadline is 31st May 2026.,memory_store,False,Prompt B (Minimal),['memory_store'],memory_store,False,False,3940.5,Done! I've stored the fact that your **project deadline is 31st May 2026**. I'll be able to recall this information anytime you need it during our con,True,False
+H07,happy_path,"What is 18% of £4,250?",calculator,False,Prompt B (Minimal),['calculator'],calculator,False,False,3603.7,"18% of £4,250 is **£765**.",True,False
+H08,happy_path,Search for the definition of Information Coefficient in quantitative finance.,web_search,False,Prompt B (Minimal),"['web_search', 'web_search', 'web_search', 'web_search', 'web_search']",web_search,False,False,10575.3,[Agent reached max turns without completing],True,False
+H09,happy_path,Calculate 2 to the power of 32.,calculator,True,Prompt B (Minimal),['calculator'],calculator,True,True,6457.3,"I'm sorry, it appears the calculator encountered an overflow error when trying to compute 2³². However, I can tell you from well-known computing knowl",True,False
+H10,happy_path,Search for the current price of Bitcoin in USD.,web_search,True,Prompt B (Minimal),['web_search'],web_search,True,True,6919.3,"I'm sorry, I'm currently unable to retrieve the latest Bitcoin price because the web search service is temporarily unavailable. Here are a few ways yo",True,False
+A01,ambiguous,What is the GDP of France?,web_search,False,Prompt B (Minimal),"['web_search', 'web_search', 'web_search']",web_search,False,False,12325.9,"I'm currently unable to retrieve live search results. However, based on my training knowledge, here is what I can share:
+
+**France's GDP (Nominal):**
+",True,False
+A02,ambiguous,How much is 20% off my budget?,memory_retrieve,False,Prompt B (Minimal),['memory_retrieve'],memory_retrieve,False,False,3392.0,"I don't have your budget stored yet. Could you please tell me your budget amount? Once you provide it, I'll calculate 20% off for you!",True,False
+A03,ambiguous,What is my project deadline?,memory_retrieve,False,Prompt B (Minimal),['memory_retrieve'],memory_retrieve,False,False,4605.0,"Your project deadline is **May 31st, 2026**. Is there anything else you'd like to know?",True,False
+A04,ambiguous,"What is the current USD to GBP exchange rate, and how much is £500 in dollars?",web_search,False,Prompt B (Minimal),"['web_search', 'web_search', 'web_search', 'web_search', 'web_search']",web_search,False,False,16599.2,[Agent reached max turns without completing],True,False
+A05,ambiguous,Tell me about the SAM optimiser.,web_search,False,Prompt B (Minimal),"['web_search', 'web_search', 'web_search']",web_search,False,False,31825.1,"I wasn't able to retrieve live search results, but I can share what I know about the **SAM (Sharpness-Aware Minimization) optimizer** from my training",True,False
+O01,out_of_scope,Write me a poem about the ocean.,,False,Prompt B (Minimal),[],,False,False,6931.1,"Here's a poem about the ocean for you:
+
+---
+
+**The Ocean's Call**
+
+Beneath the sky where seagulls cry,
+The ocean breathes and heaves a sigh,
+Its endle",True,True
+O02,out_of_scope,Can you book a restaurant for me in Knightsbridge for tonight?,,False,Prompt B (Minimal),[],,False,False,6058.7,"I'm sorry, but I'm unable to book restaurants or make reservations. That's outside of my current capabilities — I don't have access to booking platfor",True,True
+O03,out_of_scope,What will the FTSE 100 close at tomorrow?,,False,Prompt B (Minimal),[],,False,False,3801.3,"I'm unable to predict what the FTSE 100 will close at tomorrow. No tool or system can reliably forecast future stock market prices, as markets are inf",True,True
+O04,out_of_scope,Translate this into Mandarin: the quick brown fox.,,False,Prompt B (Minimal),[],,False,False,4439.1,"""The quick brown fox"" in Mandarin Chinese is:
+
+**快速的棕色狐狸**
+
+(Pinyin: *Kuàisù de zōngsè húlí*)",True,True
+O05,out_of_scope,Can you send an email to my manager saying I will be late?,,False,Prompt B (Minimal),[],,False,False,3388.9,"I'm sorry, but I **can't send emails**. That capability isn't available to me — I don't have access to your email account, contacts, or any messaging ",True,True
