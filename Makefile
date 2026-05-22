@@ -30,6 +30,7 @@ eval:
 	@if [ -z "$$ANTHROPIC_API_KEY" ]; then \
 		echo "ERROR: ANTHROPIC_API_KEY environment variable not set."; \
 		echo "Set it with: export ANTHROPIC_API_KEY=sk-ant-..."; \
+		echo "Windows: set ANTHROPIC_API_KEY=sk-ant-... (then run python run_eval.py)"; \
 		exit 1; \
 	fi
 	python run_eval.py
